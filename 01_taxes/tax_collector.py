@@ -1,5 +1,5 @@
 #!/usr/bin/python
-
+import sys
 # Taxes script w/o deductions 
 
 def calculateSingle(s):
@@ -49,5 +49,21 @@ def socialSecurityTax(s):
 def medicareTax(s):
   return s*.0145
 
-#if __name__ == '__main__':
+def compileTax(s):
+  print "Annual Salary: " + str(s)
+  print "Federal Tax: " + str(calculateSingle(s))
+  print "NJ State Tax: " + str(calculateNJState(s))
+  print "Social Security Tax: " + str(socialSecurityTax(s))
+  print "Medicare Tax: " + str(medicareTax(s))
+  total = calculateSingle(s) + calculateNJState(s) + socialSecurityTax(s) + medicareTax(s)
+  print "Total Taxes: " + str(total)
+  print "Post Tax: " + str(s-total)
+  return total
+
+if __name__ == '__main__':
+#  test_cases = [1000, 9000, 10000, 50000, 100000, 400000, 500000]
+#  for x in range(len(test_cases)):
+#    print "Test Case " + str(test_cases[x]) + ": " + str(calculateSingle(test_cases[x]))
+  #print calculateSingle(int(sys.argv[1]))
+  compileTax(int(sys.argv[1]))
   
