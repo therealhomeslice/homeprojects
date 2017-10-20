@@ -49,15 +49,25 @@ def socialSecurityTax(s):
 def medicareTax(s):
   return s*.0145
 
+def standardDeduction():
+  return int(6350)
+
+def personalExemptions(s):
+  return s*4050
+ 
 def compileTax(s):
   print "Annual Salary: " + str(s)
+  a = s
+  s -= standardDeduction()+personalExemptions(1)
+  print "Standard Deduction: " + str(standardDeduction())
+  print "Personal Exemption: " + str(personalExemptions(1))
   print "Federal Tax: " + str(calculateSingle(s))
   print "NJ State Tax: " + str(calculateNJState(s))
   print "Social Security Tax: " + str(socialSecurityTax(s))
   print "Medicare Tax: " + str(medicareTax(s))
   total = calculateSingle(s) + calculateNJState(s) + socialSecurityTax(s) + medicareTax(s)
   print "Total Taxes: " + str(total)
-  print "Post Tax: " + str(s-total)
+  print "Post Tax: " + str(a-total)
   return total
 
 if __name__ == '__main__':
