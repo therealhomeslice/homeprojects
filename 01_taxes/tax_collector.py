@@ -3,7 +3,7 @@ import sys
 import argparse
 # Taxes script w/ deductions 
 
-def calculateSingle(s, status):
+def calculateFederal(s, status):
   tax_rate = [.1, .15, .25, .28, .33, .35, .396]
   if status == True: #single
     tax_bracket = [0, 9276, 37651, 91151, 190151, 413351, 415051]
@@ -14,7 +14,7 @@ def calculateSingle(s, status):
 
   return calculateTax(s, tax_bracket, tax_rate, capital)
 
-def calculateState(s):
+def calculateState(s, state, status):
   #right now this is limited to NJ single, in the future i'd like to pass two additional variables of State(XX) & Filing Status(S/J) probably will make this into a switch case statement
 
   #NJ Taxes#
@@ -77,11 +77,11 @@ def compileTax(s,b,status,p_Ex):
   s -= standardDeduction(b)+personalExemptions(p_Ex)
   print "Deductions: " + str(standardDeduction(b))
   print "Personal Exemption: " + str(personalExemptions(p_Ex))
-  print "Federal Tax: " + str(calculateSingle(s, status))
-  print "State Tax: " + str(calculateState(s))
+  print "Federal Tax: " + str(calculateFederal(s, status))
+  print "State Tax: " + str(calculateState(s, "NJ", status))
   print "Social Security Tax: " + str(socialSecurityTax(s))
   print "Medicare Tax: " + str(medicareTax(s))
-  total = calculateSingle(s, status) + calculateState(s) + socialSecurityTax(s) + medicareTax(s)
+  total = calculateFederal(s, status) + calculateState(s, "NJ", status) + socialSecurityTax(s) + medicareTax(s)
   print "Total Taxes: " + str(total)
   print "Post Tax: " + str(a-total)
   return total
@@ -95,6 +95,6 @@ if __name__ == '__main__':
     deduction = 0
   else:
     deduction = sys.argv[2]
-  status = False
-  compileTax(int(sys.argv[1]),deduction, status, 2)
+  status = True #married
+  compileTax(int(sys.argv[1]),deduction, status, 1)
   
