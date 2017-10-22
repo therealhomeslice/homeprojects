@@ -18,6 +18,8 @@ if __name__ == '__main__':
   bonus = 0 
   deductions = 0 #(573*4)+(51+50+72.29+116.85+47.91+573)*8 + (1070*7)+3400 + 4000
   rental_property = 0#1330*8
+  roth = .30
+  
   taxable = rental_property + basic + bonus - tax_collector.standardDeduction(deductions) - tax_collector.personalExemptions(1)
   print "#####ANNUAL#####"
   print "Deductions: " + str(tax_collector.standardDeduction(deductions))
@@ -32,7 +34,7 @@ if __name__ == '__main__':
   
 #calculating monthly
   print "Pay after taxes: " + str(p_tax_pay)
-  print "Roth Contribution: " + str(basic*.20)
+  print "Roth Contribution: " + str(basic*roth)
   print "\n\n#####MONTHLY#####"
   print "Pay before taxes: " + str((basic+bah+bas+bonus)/12)
   print "Taxable Income: " + str(taxable/12)
@@ -41,8 +43,8 @@ if __name__ == '__main__':
   print "Medicare Tax: " + str(tax_collector.medicareTax(taxable)/12)
   #print "Health Insurance Benefit: " + str(47.82*12) #based of tricare reserve select
   print "Pay after taxes: " + str(p_tax_pay/12)
-  print "Roth Contribution: " + str(basic*.20/12)
-  print "Take home: " + str((p_tax_pay - (basic*.20))/12)
+  print "Roth Contribution: " + str(basic*roth/12)
+  print "Take home: " + str((p_tax_pay - (basic*roth))/12)
   
   print "\n\n#####BI-MONTHLY#####"
   print "Take home: " + str((p_tax_pay - (basic*.20))/12/2)
